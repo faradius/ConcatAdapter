@@ -2,6 +2,7 @@ package com.developerscracks.concatadapter.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.developerscracks.concatadapter.R
@@ -20,11 +21,13 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[PeliculaViewModel::class.java]
 
-        viewModel.isConnected.observe(this){isConnected->
-            if (isConnected){
+        viewModel.isConnected.observe(this) { isConnected ->
+            if (isConnected) {
                 binding.tvText.text = "Hay conexión"
-            }else{
+                Log.d("TAG", viewModel.getInfoMovies().toString())
+            } else {
                 binding.tvText.text = "No hay conexión"
+                Log.d("TAG", viewModel.getInfoMovies().toString())
             }
 
             binding.swipeRefreshLayout.isRefreshing = false

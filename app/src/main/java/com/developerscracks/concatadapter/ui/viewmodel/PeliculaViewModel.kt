@@ -1,13 +1,11 @@
 package com.developerscracks.concatadapter.ui.viewmodel
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.developerscracks.concatadapter.data.database.FakeDataBase
+import com.developerscracks.concatadapter.data.model.Pelicula
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -41,6 +39,14 @@ class PeliculaViewModel: ViewModel() {
             true
         } catch (e: IOException) {
             false
+        }
+    }
+
+    fun getInfoMovies():List<Pelicula>{
+        return if(_isConnected.value == true){
+            FakeDataBase.peliculas()
+        }else{
+            emptyList()
         }
     }
 }
